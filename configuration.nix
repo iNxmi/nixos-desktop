@@ -19,7 +19,7 @@
     graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = with pkgs; [ config.boot.kernelPackages.nvidiaPackages.stable ];
+      #extraPackages = with pkgs; [ config.boot.kernelPackages.nvidiaPackages.stable ];
     };
     nvidia = {
       modesetting.enable = true;
@@ -27,7 +27,7 @@
       powerManagement.finegrained = false;
       open = true;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
     opentabletdriver.enable = true;
     xone.enable = true;
@@ -138,15 +138,14 @@
 
   fileSystems."/mnt/nvme" = {
     device = "/dev/disk/by-uuid/BEDE8F02DE8EB267";
-    fsType = "ntfs-3g";
+    fsType = "ntfs3";
     options = [
       "rw"
       "uid=1000"
       "gid=1000"
       "nofail"
-      "windows_names"
       "exec"
-      "x-gvfs-show"
+      "umask=000"
     ];
   };
 
