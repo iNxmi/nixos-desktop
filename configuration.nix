@@ -78,11 +78,9 @@
         enable = true;
         user = "memphis";
       };
-      sddm.autoLogin.relogin = true;
     };
 
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+    desktopManager.plasma6.enable = true;
 
     printing.enable = true;
 
@@ -97,13 +95,6 @@
         pkgs.xterm
       ];
     };
-
-    gnome = {
-      core-apps.enable = false;
-      core-developer-tools.enable = false;
-      games.enable = false;
-    };
-    gvfs.enable = true;
 
     pulseaudio.enable = false;
     pipewire = {
@@ -120,13 +111,11 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "fuse"
     ];
   };
 
   programs = {
     steam.enable = true;
-    gnome-disks.enable = true;
     vscode = {
       enable = true;
       extensions = with pkgs.vscode-extensions; [
@@ -136,174 +125,6 @@
         jnoortheen.nix-ide
       ];
     };
-    dconf.profiles.user.databases = [
-      {
-        settings = {
-          "org/gnome/desktop/notifications" = {
-            show-banners = false;
-          };
-          "org/gnome/desktop/interface" = {
-            accent-color = "red";
-            color-scheme = "prefer-dark";
-            enable-animations = false;
-            enable-hot-corners = false;
-            clock-show-seconds = true;
-          };
-          "org/gnome/shell" = {
-            favorite-apps = pkgs.lib.gvariant.mkEmptyArray pkgs.lib.gvariant.type.string;
-            enabled-extensions = [
-              "panel-date-format@keiii.github.com"
-              "dash-to-panel@jderose9.github.com"
-              "caffeine@patapon.info"
-              "super-key@tommimon.github.com"
-            ];
-            disable-user-extensions = false;
-          };
-          "org/gnome/desktop/wm/preferences" = {
-            button-layout = "appmenu:minimize,maximize,close";
-          };
-          "org/gnome/desktop/peripherals/mouse" = {
-            accel-profile = "flat";
-          };
-          "org/gnome/desktop/session" = {
-            idle-delay = pkgs.lib.gvariant.mkInt32 0;
-          };
-          "org/gnome/settings-daemon/plugins/power" = {
-            sleep-inactive-ac-type = "nothing";
-          };
-          "org/gnome/shell/extensions/caffeine" = {
-            show-indicator = "never";
-            show-notifications = false;
-            show-toggle = false;
-            show-timer = false;
-          };
-          "org/gnome/shell/extensions/dash-to-panel" = {
-            panel-sizes = builtins.toJSON {
-              AOC-18DQ5HA041237 = 48;
-              AOC-18DQ5HA058530 = 48;
-            };
-            panel-lengths = builtins.toJSON {
-              AOC-18DQ5HA041237 = 100;
-              AOC-18DQ5HA058530 = 100;
-            };
-            panel-element-positions = builtins.toJSON {
-              AOC-18DQ5HA041237 = [
-                {
-                  element = "systemMenu";
-                  visible = true;
-                  position = "stackedTL";
-                }
-                {
-                  element = "taskbar";
-                  visible = true;
-                  position = "centerMonitor";
-                }
-                {
-                  element = "dateMenu";
-                  visible = true;
-                  position = "stackedBR";
-                }
-                {
-                  element = "showAppsButton";
-                  visible = false;
-                  position = "stackedTL";
-                }
-                {
-                  element = "activitiesButton";
-                  visible = false;
-                  position = "stackedTL";
-                }
-                {
-                  element = "leftBox";
-                  visible = false;
-                  position = "stackedTL";
-                }
-                {
-                  element = "centerBox";
-                  visible = false;
-                  position = "stackedBR";
-                }
-                {
-                  element = "rightBox";
-                  visible = false;
-                  position = "stackedBR";
-                }
-                {
-                  element = "desktopButton";
-                  visible = false;
-                  position = "stackedBR";
-                }
-              ];
-              AOC-18DQ5HA058530 = [
-                {
-                  element = "systemMenu";
-                  visible = true;
-                  position = "stackedTL";
-                }
-                {
-                  element = "taskbar";
-                  visible = true;
-                  position = "centerMonitor";
-                }
-                {
-                  element = "dateMenu";
-                  visible = true;
-                  position = "stackedBR";
-                }
-                {
-                  element = "showAppsButton";
-                  visible = false;
-                  position = "stackedTL";
-                }
-                {
-                  element = "activitiesButton";
-                  visible = false;
-                  position = "stackedTL";
-                }
-                {
-                  element = "leftBox";
-                  visible = false;
-                  position = "stackedTL";
-                }
-                {
-                  element = "centerBox";
-                  visible = false;
-                  position = "stackedBR";
-                }
-                {
-                  element = "rightBox";
-                  visible = false;
-                  position = "stackedBR";
-                }
-                {
-                  element = "desktopButton";
-                  visible = false;
-                  position = "stackedBR";
-                }
-              ];
-            };
-            global-border-radius = pkgs.lib.gvariant.mkInt32 0;
-            appicon-margin = pkgs.lib.gvariant.mkInt32 0;
-            appicon-padding = pkgs.lib.gvariant.mkInt32 8;
-            dot-style-focused = "METRO";
-            dot-style-unfocused = "DASHES";
-            trans-use-custom-bg = true;
-            trans-use-custom-opacity = true;
-            trans-bg-color = "#000000";
-            trans-panel-opacity = pkgs.lib.gvariant.mkDouble 0.75;
-            window-preview-padding = pkgs.lib.gvariant.mkInt32 0;
-            tray-size = pkgs.lib.gvariant.mkInt32 16;
-            hide-overview-on-startup = true;
-          };
-          "org/gnome/shell/extensions/panel-date-format" = {
-            format = "%Y/%m/%d   %H:%M:%S";
-          };
-          "org/gnome/shell/extensions/super-key" = {
-            overlay-key-action = "ulauncher-toggle";
-          };
-        };
-      }
-    ];
   };
 
   documentation.nixos.enable = false;
@@ -335,6 +156,9 @@
       gnome-user-docs
     ];
     systemPackages = with pkgs; [
+      kdePackages.dolphin
+      kdePackages.konsole
+
       vulkan-loader
       vulkan-tools
       btop
@@ -342,19 +166,10 @@
       asciiquarium
       thunderbird
       prismlauncher
-      gnome-tweaks
-      gnome-terminal
-      gnomeExtensions.caffeine
-      gnomeExtensions.dash-to-panel
-      gnomeExtensions.super-key
-      gnomeExtensions.panel-date-format
-      gnomeExtensions.random-wallpaper
       stremio
-      nautilus
       vesktop
       keepassxc
       protonvpn-gui
-      ulauncher
       git
       osu-lazer
       jetbrains.idea
