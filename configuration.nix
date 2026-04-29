@@ -19,7 +19,7 @@
     graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = [ pkgs.config.boot.kernelPackages.nvidiaPackages.stable ];
+      extraPackages = with pkgs; [ config.boot.kernelPackages.nvidiaPackages.stable ];
     };
     nvidia = {
       modesetting.enable = true;
