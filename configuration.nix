@@ -2,12 +2,16 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
   ];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   hardware.enableRedistributableFirmware = true;
   hardware.firmware = with pkgs; [
@@ -18,12 +22,12 @@
   services.displayManager.autoLogin.user = "memphis";
   services.displayManager.sddm.autoLogin.relogin = true;
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = with pkgs; [config.boot.kernelPackages.nvidiaPackages.stable];
+    extraPackages = with pkgs; [ config.boot.kernelPackages.nvidiaPackages.stable ];
   };
 
   hardware.nvidia = {
@@ -40,7 +44,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelModules = ["iwlwifi" "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
+  boot.kernelModules = [
+    "iwlwifi"
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
 
   networking.hostName = "nixos-desktop";
   networking.networkmanager.enable = true;
@@ -95,7 +105,11 @@
   users.users.memphis = {
     isNormalUser = true;
     description = "Memphis";
-    extraGroups = ["networkmanager" "wheel" "fuse"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "fuse"
+    ];
   };
 
   programs.steam.enable = true;
@@ -302,6 +316,7 @@
       myriad-dreamin.tinymist
       tomoki1207.pdf
       k--kato.intellij-idea-keybindings
+      jnoortheen.nix-ide
     ];
   };
 
@@ -338,6 +353,7 @@
     openterface-qt
     qpwgraph
     docker
+    nixfmt
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
