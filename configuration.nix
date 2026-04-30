@@ -116,6 +116,7 @@
 
   programs = {
     steam.enable = true;
+    ssh.startAgent = true;
     vscode = {
       enable = true;
       extensions = with pkgs.vscode-extensions; [
