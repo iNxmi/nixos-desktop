@@ -19,7 +19,6 @@
     graphics = {
       enable = true;
       enable32Bit = true;
-      #extraPackages = with pkgs; [ config.boot.kernelPackages.nvidiaPackages.stable ];
     };
     nvidia = {
       modesetting.enable = true;
@@ -111,6 +110,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
     ];
   };
 
@@ -150,22 +150,27 @@
     ];
   };
 
+  virtualisation.docker.enable = true;
+
   environment = {
-    gnome.excludePackages = with pkgs; [
-      gnome-tour
-      gnome-user-docs
+    plasma6.excludePackages = with pkgs.kdePackages; [
+      elisa
+      okular
+      kate
+      khelpcenter
+      spectacle
+      ark
+      elisa
+      gwenview
     ];
     systemPackages = with pkgs; [
-      kdePackages.dolphin
-      kdePackages.konsole
-
       vulkan-loader
       vulkan-tools
 
       btop
       bat
       asciiquarium
-      
+
       thunderbird
       prismlauncher
       stremio
@@ -174,7 +179,7 @@
       protonvpn-gui
       osu-lazer
       vlc
-      
+
       zip
       qpwgraph
 
@@ -183,7 +188,6 @@
 
       git
       nixfmt
-      docker
       typst
       gcc
       cmake
