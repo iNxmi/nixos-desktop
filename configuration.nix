@@ -160,28 +160,33 @@
 
       vulkan-loader
       vulkan-tools
+
       btop
       bat
       asciiquarium
+      
       thunderbird
       prismlauncher
       stremio
       vesktop
       keepassxc
       protonvpn-gui
-      git
       osu-lazer
+      vlc
+      
+      zip
+      qpwgraph
+
       jetbrains.idea
       jetbrains.clion
+
+      git
+      nixfmt
+      docker
+      typst
       gcc
       cmake
-      zip
-      vlc
-      typst
-      openterface-qt
-      qpwgraph
-      docker
-      nixfmt
+      nodejs_24
     ];
   };
 
