@@ -9,6 +9,30 @@
     ./hardware-configuration.nix
   ];
 
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    
+    extraSpecialArgs = { inherit inputs; };
+
+    users.memphis = {
+      imports = [
+        inputs.plasma-manager.homeManagerModules.plasma-manager
+      ];
+
+      home.stateVersion = "25.11"; 
+
+      programs.plasma = {
+        enable = true;
+        
+        workspace = {
+          clickItemTo = "select";
+          lookAndFeel = "org.kde.breezedark.desktop";
+        };
+      };
+    };
+  };
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
