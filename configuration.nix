@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -32,6 +33,21 @@
     xone.enable = true;
   };
 
+  programs = {
+    steam.enable = true;
+    thunderbird.enable = true;
+    ssh.startAgent = true;
+    vscode = {
+      enable = true;
+      extensions = with pkgs.vscode-extensions; [
+        myriad-dreamin.tinymist
+        tomoki1207.pdf
+        k--kato.intellij-idea-keybindings
+        jnoortheen.nix-ide
+      ];
+    };
+  };
+
   boot = {
     loader = {
       systemd-boot.enable = true;
@@ -44,6 +60,7 @@
       "nvidia_uvm"
       "nvidia_drm"
     ];
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
   };
 
   networking = {
@@ -114,27 +131,16 @@
     ];
   };
 
-  programs = {
-    steam.enable = true;
-    ssh.startAgent = true;
-    vscode = {
-      enable = true;
-      extensions = with pkgs.vscode-extensions; [
-        myriad-dreamin.tinymist
-        tomoki1207.pdf
-        k--kato.intellij-idea-keybindings
-        jnoortheen.nix-ide
-      ];
-    };
-  };
-
   documentation.nixos.enable = false;
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    permittedInsecurePackages = [
-      "qtwebengine-5.15.19"
-    ];
+  nixpkgs = {
+    overlays = [ inputs.nix-cachyos-kernel.overlays.default ];
+    config = {
+      allowUnfree = true;
+      permittedInsecurePackages = [
+        "qtwebengine-5.15.19"
+      ];
+    };
   };
 
   fileSystems."/mnt/nvme" = {
@@ -169,22 +175,27 @@
 
       btop
       bat
-      asciiquarium
+      zip
 
-      thunderbird
-      prismlauncher
-      stremio
-      vesktop
+      fastfetch
+      asciiquarium
+      nyancat
+      cava
+
+      vlc
       keepassxc
       protonvpn-gui
-      osu-lazer
-      vlc
+      inputs.zen-browser.packages.${pkgs.system}.default
 
-      zip
-      qpwgraph
+      vesktop
+      prismlauncher
+      osu-lazer
+      stremio
 
       jetbrains.idea
       jetbrains.clion
+
+      openconnect
 
       git
       nixfmt
