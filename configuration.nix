@@ -12,7 +12,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    
+
     extraSpecialArgs = { inherit inputs; };
 
     users.memphis = {
@@ -20,16 +20,16 @@
         inputs.plasma-manager.homeManagerModules.plasma-manager
       ];
 
-      home.stateVersion = "25.11"; 
-
       programs.plasma = {
         enable = true;
-        
+
         workspace = {
           clickItemTo = "select";
           lookAndFeel = "org.kde.breezedark.desktop";
         };
       };
+
+      home.stateVersion = "25.11";
     };
   };
 
@@ -55,6 +55,20 @@
     };
     opentabletdriver.enable = true;
     xone.enable = true;
+    printers = {
+      ensurePrinters = [
+        {
+          name = "canon_mg7750_series";
+          location = "Server";
+          deviceUri = "ipp://192.168.178.42/ipp/print";
+          model = "everywhere";
+          ppdOptions = {
+            PageSize = "A4";
+          };
+        }
+      ];
+      ensureDefaultPrinter = "canon_mg7750_series";
+    };
   };
 
   programs = {
