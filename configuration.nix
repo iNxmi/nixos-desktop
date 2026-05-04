@@ -40,7 +40,10 @@
 
   hardware = {
     enableRedistributableFirmware = true;
-    firmware = [ pkgs.linux-firmware ];
+    firmware = [
+      pkgs.linux-firmware
+      pkgs.sof-firmware
+    ];
     graphics = {
       enable = true;
       enable32Bit = true;
@@ -159,14 +162,24 @@
     };
   };
 
-  users.users.memphis = {
-    isNormalUser = true;
-    description = "Memphis";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-    ];
+  users = {
+    groups.davfs2 = { };
+    users = {
+      memphis = {
+        isNormalUser = true;
+        description = "Memphis";
+        extraGroups = [
+          "networkmanager"
+          "wheel"
+          "docker"
+          "davfs2"
+        ];
+      };
+      davfs2 = {
+        isSystemUser = true;
+        group = "davfs2";
+      };
+    };
   };
 
   documentation.nixos.enable = false;
@@ -181,20 +194,27 @@
     };
   };
 
-  fileSystems."/mnt/nvme" = {
-    device = "/dev/disk/by-uuid/BEDE8F02DE8EB267";
-    fsType = "ntfs3";
-    options = [
-      "rw"
-      "uid=1000"
-      "gid=1000"
-      "nofail"
-      "exec"
-      "umask=000"
-    ];
+  fileSystems = {
+    "/mnt/nvme" = {
+      device = "/dev/disk/by-uuid/fd9390a5-93d5-4c43-beac-90dcf1de0a59";
+      fsType = "ext4";
+      options = [
+        "rw"
+        "nofail"
+      ];
+    };
   };
 
-  virtualisation.docker.enable = true;
+  systemd.services.fix-nvme-permissions = {
+    after = [ "mnt-nvme.mount" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.ExecStart = "${pkgs.coreutils}/bin/chown -R memphis:users /mnt/nvme";
+  };
+
+  virtualisation = {
+    docker.enable = true;
+    waydroid.enable = true;
+  };
 
   environment = {
     plasma6.excludePackages = with pkgs.kdePackages; [
@@ -214,6 +234,7 @@
       btop
       bat
       zip
+      unzip
 
       fastfetch
       asciiquarium
