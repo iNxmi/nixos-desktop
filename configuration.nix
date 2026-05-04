@@ -211,10 +211,7 @@
     serviceConfig.ExecStart = "${pkgs.coreutils}/bin/chown -R memphis:users /mnt/nvme";
   };
 
-  virtualisation = {
-    docker.enable = true;
-    waydroid.enable = true;
-  };
+  virtualisation.docker.enable = true;
 
   environment = {
     plasma6.excludePackages = with pkgs.kdePackages; [
