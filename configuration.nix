@@ -56,18 +56,15 @@
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
-    opentabletdriver.enable = true;
     xone.enable = true;
     printers = {
       ensurePrinters = [
         {
           name = "canon_mg7750_series";
+          description = "Canon MG7750 Series";
           location = "Server";
           deviceUri = "ipp://192.168.178.42/ipp/print";
           model = "everywhere";
-          ppdOptions = {
-            PageSize = "A4";
-          };
         }
       ];
       ensureDefaultPrinter = "canon_mg7750_series";
@@ -106,7 +103,10 @@
 
   networking = {
     hostName = "nixos-desktop";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.powersave = false;
+    };
   };
   time.timeZone = "Europe/Berlin";
 
@@ -162,24 +162,14 @@
     };
   };
 
-  users = {
-    groups.davfs2 = { };
-    users = {
-      memphis = {
-        isNormalUser = true;
-        description = "Memphis";
-        extraGroups = [
-          "networkmanager"
-          "wheel"
-          "docker"
-          "davfs2"
-        ];
-      };
-      davfs2 = {
-        isSystemUser = true;
-        group = "davfs2";
-      };
-    };
+  users.users.memphis = {
+    isNormalUser = true;
+    description = "Memphis";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
   };
 
   documentation.nixos.enable = false;
@@ -225,34 +215,43 @@
       gwenview
     ];
     systemPackages = with pkgs; [
+      # Graphics Dependencies
       vulkan-loader
       vulkan-tools
 
+      # Linux Tools
       btop
       bat
       zip
       unzip
 
+      # Nerdy linux shit
       fastfetch
       asciiquarium
       nyancat
       cava
 
+      # Tools
       vlc
       keepassxc
       protonvpn-gui
       inputs.zen-browser.packages.${pkgs.system}.default
 
       vesktop
-      prismlauncher
-      osu-lazer
       stremio
 
+      # Games
+      olympus
+      osu-lazer
+      prismlauncher
+
+      # Codingers
       jetbrains.idea
       jetbrains.clion
 
       openconnect
 
+      # More Codingers
       git
       nixfmt
       typst
