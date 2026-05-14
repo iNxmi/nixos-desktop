@@ -209,7 +209,6 @@
       okular
       kate
       khelpcenter
-      spectacle
       ark
       elisa
       gwenview
@@ -249,14 +248,13 @@
       jetbrains.idea
       jetbrains.clion
 
-      openconnect
-
       # More Codingers
       git
       nixfmt
       typst
       gcc
       cmake
+      gnumake
       nodejs_24
     ];
   };
