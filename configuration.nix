@@ -26,7 +26,23 @@
         workspace = {
           clickItemTo = "select";
           lookAndFeel = "org.kde.breezedark.desktop";
+          wallpaper = "/etc/nixos/assets/wallpaper.jpeg";
         };
+
+        panels = [
+          {
+            location = "bottom";
+            screen = "all";
+            alignment = "center";
+            widgets = [
+              "org.kde.plasma.kickoff"
+              "org.kde.plasma.marginsseparator"
+              "org.kde.plasma.icontasks"
+              "org.kde.plasma.marginsseparator"
+              "org.kde.plasma.digitalclock"
+            ];
+          }
+        ];
       };
 
       home.stateVersion = "25.11";
@@ -223,6 +239,7 @@
       bat
       zip
       unzip
+      tree
 
       # Nerdy linux shit
       fastfetch
@@ -256,6 +273,7 @@
       cmake
       gnumake
       nodejs_24
+      unityhub
     ];
   };
 
