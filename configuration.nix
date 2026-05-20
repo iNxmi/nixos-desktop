@@ -20,29 +20,31 @@
         inputs.plasma-manager.homeManagerModules.plasma-manager
       ];
 
-      programs.plasma = {
-        enable = true;
+      programs = {
+        plasma = {
+          enable = true;
 
-        workspace = {
-          clickItemTo = "select";
-          lookAndFeel = "org.kde.breezedark.desktop";
-          wallpaper = "/etc/nixos/assets/wallpaper.jpeg";
+          workspace = {
+            clickItemTo = "select";
+            lookAndFeel = "org.kde.breezedark.desktop";
+            wallpaper = "/etc/nixos/assets/wallpaper.jpeg";
+          };
+
+          panels = [
+            {
+              location = "bottom";
+              screen = "all";
+              alignment = "center";
+              widgets = [
+                "org.kde.plasma.kickoff"
+                "org.kde.plasma.marginsseparator"
+                "org.kde.plasma.icontasks"
+                "org.kde.plasma.marginsseparator"
+                "org.kde.plasma.digitalclock"
+              ];
+            }
+          ];
         };
-
-        panels = [
-          {
-            location = "bottom";
-            screen = "all";
-            alignment = "center";
-            widgets = [
-              "org.kde.plasma.kickoff"
-              "org.kde.plasma.marginsseparator"
-              "org.kde.plasma.icontasks"
-              "org.kde.plasma.marginsseparator"
-              "org.kde.plasma.digitalclock"
-            ];
-          }
-        ];
       };
 
       home.stateVersion = "25.11";
@@ -211,10 +213,14 @@
     };
   };
 
-  systemd.services.fix-nvme-permissions = {
-    after = [ "mnt-nvme.mount" ];
+  systemd.services.fix-mnt-permissions = {
+    after = [ "local-fs.target" ];
     wantedBy = [ "multi-user.target" ];
-    serviceConfig.ExecStart = "${pkgs.coreutils}/bin/chown -R memphis:users /mnt/nvme";
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.coreutils}/bin/chown -R memphis:users /mnt";
+    };
   };
 
   virtualisation.docker.enable = true;
@@ -240,6 +246,7 @@
       zip
       unzip
       tree
+      rclone
 
       # Nerdy linux shit
       fastfetch
@@ -251,6 +258,8 @@
       vlc
       keepassxc
       protonvpn-gui
+      libreoffice
+      wireshark
       inputs.zen-browser.packages.${pkgs.system}.default
 
       vesktop
@@ -264,6 +273,7 @@
       # Codingers
       jetbrains.idea
       jetbrains.clion
+      unityhub
 
       # More Codingers
       git
@@ -273,7 +283,6 @@
       cmake
       gnumake
       nodejs_24
-      unityhub
     ];
   };
 
