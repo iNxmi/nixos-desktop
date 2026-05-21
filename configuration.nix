@@ -203,7 +203,7 @@
   };
 
   fileSystems = {
-    "/mnt/nvme" = {
+    "/home" = {
       device = "/dev/disk/by-uuid/fd9390a5-93d5-4c43-beac-90dcf1de0a59";
       fsType = "ext4";
       options = [
