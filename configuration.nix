@@ -125,6 +125,7 @@
       enable = true;
       wifi.powersave = false;
     };
+    firewall.checkReversePath = false;
   };
   time.timeZone = "Europe/Berlin";
 
@@ -283,6 +284,10 @@
       cmake
       gnumake
       nodejs_24
+
+      # Testing
+      mangohud
+      wireguard-tools
     ];
   };
 
