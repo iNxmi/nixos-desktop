@@ -274,6 +274,7 @@
       # Codingers
       jetbrains.idea
       jetbrains.clion
+      jetbrains.pycharm
       unityhub
 
       # More Codingers
@@ -284,10 +285,11 @@
       cmake
       gnumake
       nodejs_24
+      python3
 
       # Testing
-      mangohud
       wireguard-tools
+      linuxHeaders
     ];
   };
 
