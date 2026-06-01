@@ -115,6 +115,8 @@
       "nvidia_modeset"
       "nvidia_uvm"
       "nvidia_drm"
+      "wireguard"
+      "tun"
     ];
     kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
   };
@@ -123,9 +125,10 @@
     hostName = "nixos-desktop";
     networkmanager = {
       enable = true;
+      dns = "systemd-resolved";
       wifi.powersave = false;
     };
-    firewall.checkReversePath = false;
+    firewall.checkReversePath = "loose";
   };
   time.timeZone = "Europe/Berlin";
 
@@ -155,6 +158,8 @@
         user = "memphis";
       };
     };
+
+    resolved.enable = true;
 
     desktopManager.plasma6.enable = true;
 
@@ -254,13 +259,12 @@
       asciiquarium
       nyancat
       cava
+      termdown
 
       # Tools
       vlc
       keepassxc
       protonvpn-gui
-      libreoffice
-      wireshark
       inputs.zen-browser.packages.${pkgs.system}.default
 
       vesktop
@@ -274,10 +278,9 @@
       # Codingers
       jetbrains.idea
       jetbrains.clion
-      jetbrains.pycharm
       unityhub
 
-      # More Codingers
+      # Codinger Dependencies
       git
       nixfmt
       typst
@@ -285,11 +288,10 @@
       cmake
       gnumake
       nodejs_24
-      python3
 
-      # Testing
+      # Testingers
       wireguard-tools
-      linuxHeaders
+      antigravity
     ];
   };
 
